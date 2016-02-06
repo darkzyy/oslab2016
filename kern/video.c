@@ -14,3 +14,14 @@ display_buffer(void) {
 	vmem = VMEM_ADDR;
 	memmove(vmem, vbuf, SCR_SIZE);
 }
+
+void
+draw_square(int x, int y, int color, int len) {
+	assert(len >= 0);
+	int i,j;
+	for(j = 0;j < len;j++) {
+		for(i = 0;i < len;i++) {
+			draw_pixel(x+i, y+j, color);
+		}
+	}
+}

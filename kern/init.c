@@ -41,7 +41,7 @@ i386_init(void)
 
 	cprintf("kernel is entering draw\n");
 	//draw old pic for testing
-	redraw_screen();
+	draw_tux();
 	cprintf("kernel is leaving draw\n");
 
 	// Drop into the kernel monitor.

@@ -3,7 +3,6 @@
 
 #include <kern/video.h>
 
-#define TEXT "my oslab"
 #define PIC {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,9,9,9,9,9,9,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,\
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1,9,9,9,1,9,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,\
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,15,15,15,15,15,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,\
@@ -50,7 +49,7 @@ static int c[width*height]=PIC;
 #define anchor_border_bottom (move_area_height+anchor_border_top-1)
 
 void
-redraw_screen() 
+draw_tux() 
 {   
 	int anchor_x=0,anchor_y=0;
 	cprintf("is going to prepare buffer\n");

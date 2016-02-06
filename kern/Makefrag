@@ -30,6 +30,9 @@ KERN_SRCFILES :=	kern/entry.S \
 			kern/kdebug.c \
 			kern/draw.c \
 			kern/video.c \
+			kern/game.c \
+			kern/game_draw.c \
+			kern/game_layout.c \
 			lib/printfmt.c \
 			lib/readline.c \
 			lib/string.c

@@ -19,6 +19,8 @@ draw_pixel(int x, int y, int color) {
 	vbuf[(x << 8) + (x << 6) + y] = color;
 }
 
+void draw_square(int x, int y, int color, int len);
+
 void prepare_buffer(void);
 void display_buffer(void);
 
