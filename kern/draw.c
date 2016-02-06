@@ -41,40 +41,9 @@
 #define height 32
 static int c[width*height]=PIC;
 
-#define TUX
 void
 redraw_screen() 
 {   
-	/*Complete here.Just only some lines code*/
-#ifdef OSLAB_BIGGER
-#define dividor 8000000
-	static char buf[256] = TEXT;
-	uint32_t adder = 0,counter = 0;
-	while(1){
-		if((adder%dividor) == dividor-1){
-			prepare_buffer();
-			counter = (counter+1)%16;
-			draw_bigger_string(buf,5*counter,4*counter,counter);
-			display_buffer();
-		}
-		adder++;
-	}
-#endif
-#ifdef OSLAB
-#define dividor 8000000
-	static char buf[256] = TEXT;
-	uint32_t adder = 0,counter = 0;
-	while(1){
-		if((adder%dividor) == dividor-1){
-			prepare_buffer();
-			counter = (counter+1)%16;
-			draw_string(buf,10*counter,8*counter,counter);
-			display_buffer();
-		}
-		adder++;
-	}
-#endif
-#ifdef TUX
 	while(1){
 		cprintf("is going to prepare buffer\n");
 		prepare_buffer();
@@ -89,17 +58,6 @@ redraw_screen()
 		display_buffer();
 		cprintf("displayed buffer\n");
 	}
-#endif
-#ifdef COLORS
-	prepare_buffer();
-	int x,y;
-	for(x=0;x<256;x++){
-		for(y=0;y<160;y++){
-			draw_pixel(y,x,0);
-		}
-	}
-	display_buffer();
-#endif
 }
 
 
