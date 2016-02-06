@@ -2,7 +2,7 @@
 #include <inc/string.h>
 
 uint8_t *vmem = VMEM_ADDR;
-static uint8_t vbuf[SCR_SIZE];
+uint8_t vbuf[SCR_SIZE];
 
 void 
 prepare_buffer(void) {

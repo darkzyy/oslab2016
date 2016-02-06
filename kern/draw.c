@@ -1,4 +1,6 @@
 #include <inc/string.h>
+#include <inc/stdio.h>
+
 #include <kern/video.h>
 
 #define TEXT "my oslab"
@@ -35,6 +37,9 @@
 	9,9,9,9,9,9,9,9,1,1,1,15,15,0,1,9,1,15,15,15,15,1,0,1,15,15,0,0,1,9,15,15,1,1,1,9,9,9,9,9,9,9,9,9,9,\
 	9,9,9,9,9,9,9,9,9,9,1,1,0,1,1,1,1,1,0,1,0,0,1,9,1,1,0,1,9,1,1,0,1,9,9,9,1,9,9,9,9,9,9,9,9}
 
+#define width 45
+#define height 32
+static int c[width*height]=PIC;
 
 #define TUX
 void
@@ -70,24 +75,27 @@ redraw_screen()
 	}
 #endif
 #ifdef TUX
-#define width 45
-#define height 32
-	prepare_buffer();
-	int x,y;
-	int c[width*height]=PIC;
-	for(y=0;y<height*5;y++){
-		for(x=0;x<width*5;x++){
-			draw_pixel(y,x,c[y/5*width+x/5]);
+	while(1){
+		cprintf("is going to prepare buffer\n");
+		prepare_buffer();
+		cprintf("has prepared buffer\n");
+		int x,y;
+		for(y=0;y<height*5;y++){
+			for(x=0;x<width*5;x++){
+				draw_pixel(y,x,c[y/5*width+x/5]);
+			}
 		}
+		cprintf("is going to display buffer\n");
+		display_buffer();
+		cprintf("displayed buffer\n");
 	}
-	display_buffer();
 #endif
 #ifdef COLORS
 	prepare_buffer();
 	int x,y;
 	for(x=0;x<256;x++){
 		for(y=0;y<160;y++){
-			draw_pixel(y,x,x);
+			draw_pixel(y,x,0);
 		}
 	}
 	display_buffer();

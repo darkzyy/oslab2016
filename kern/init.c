@@ -39,8 +39,10 @@ i386_init(void)
 	// Test the stack backtrace function (lab 1 only)
 	test_backtrace(5);
 
+	cprintf("kernel is entering draw\n");
 	//draw old pic for testing
 	redraw_screen();
+	cprintf("kernel is leaving draw\n");
 
 	// Drop into the kernel monitor.
 	while (1)
