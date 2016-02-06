@@ -87,3 +87,23 @@ draw_tux()
 	}
 }
 
+void 
+draw_color()
+{
+	prepare_buffer();
+	while(1){
+		int getch = getchar();
+		if(getch != 'a'){
+			int x,y;
+			for(x=0;x<256;x++){
+				for(y=0;y<160;y++){
+					draw_pixel(y,x,x);
+				}
+			}
+			display_buffer();
+		}
+	}
+}
+
+
+

@@ -15,4 +15,6 @@ struct pos{
 
 extern struct pos protag, box[3];
 
+void game_loop();
+
 #endif /*_GAME_H_*/

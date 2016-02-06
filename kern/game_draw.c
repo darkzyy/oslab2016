@@ -39,8 +39,10 @@ draw_box() { /*and protagonist*/
 
 void
 game_display(){
+	cprintf("game displaying\n");
 	draw_map();
 	draw_box();
+	display_buffer();
 }
 
 #undef LEN

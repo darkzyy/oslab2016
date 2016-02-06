@@ -7,6 +7,7 @@
 #include <kern/monitor.h>
 #include <kern/console.h>
 #include <kern/draw.h>
+#include <kern/game.h>
 
 // Test the stack backtrace function (lab 1 only)
 void
@@ -40,8 +41,7 @@ i386_init(void)
 	test_backtrace(5);
 
 	cprintf("kernel is entering draw\n");
-	//draw old pic for testing
-	draw_tux();
+	game_loop();
 	cprintf("kernel is leaving draw\n");
 
 	// Drop into the kernel monitor.

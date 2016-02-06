@@ -117,16 +117,21 @@ victory() {
 
 void
 game_loop(void) { /* driven by keyboard interuption */
+	position_init();
 	game_display();
 	while(1) {
 		int getch = getchar();
 		if(getch == 'a') {
+			protag_move(-1, 0);
 		}
 		else if(getch == 's') {
+			protag_move(0, 1);
 		}
 		else if(getch == 'd') {
+			protag_move(1, 0);
 		}
 		else if(getch == 'w') {
+			protag_move(0, -1);
 		}
 		else if(getch == 'v') {
 		}
