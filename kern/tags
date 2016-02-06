@@ -58,6 +58,7 @@ MULTIBOOT_HEADER_MAGIC	entry.S	/^#define MULTIBOOT_HEADER_MAGIC (0x1BADB002)$/;"
 NCOMMANDS	monitor.c	28;"	d	file:
 NO	console.c	214;"	d	file:
 NUMLOCK	console.c	221;"	d	file:
+PIC	draw.c	5;"	d	file:
 RELOC	entry.S	/^#define	RELOC(x) ((x) - KERNBASE)$/;"	d
 SCROLLLOCK	console.c	222;"	d	file:
 SCR_HEIGHT	video.h	9;"	d
@@ -65,10 +66,13 @@ SCR_SIZE	video.h	10;"	d
 SCR_WIDTH	video.h	8;"	d
 SHIFT	console.c	216;"	d	file:
 SRL	entry.S	/^#define SRL(val, shamt)		(((val) >> (shamt)) & ~(-1 << (32 - (shamt))))$/;"	d
+TEXT	draw.c	4;"	d	file:
+TUX	draw.c	39;"	d	file:
 VMEM_ADDR	video.h	11;"	d
 WHITESPACE	monitor.c	69;"	d	file:
 _CONSOLE_H_	console.h	4;"	d
 _CONSOLE_H_	video.h	2;"	d
+_DRAW_H_	draw.h	2;"	d
 __anon1::buf	console.c	/^	uint8_t buf[CONSBUFSIZE];$/;"	m	struct:__anon1	file:	access:public
 __anon1::rpos	console.c	/^	uint32_t rpos;$/;"	m	struct:__anon1	file:	access:public
 __anon1::wpos	console.c	/^	uint32_t wpos;$/;"	m	struct:__anon1	file:	access:public
@@ -101,7 +105,10 @@ debuginfo_eip	kdebug.c	/^debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info
 debuginfo_eip	kdebug.h	/^int debuginfo_eip(uintptr_t eip, struct Eipdebuginfo *info);$/;"	p	signature:(uintptr_t eip, struct Eipdebuginfo *info)
 delay	console.c	/^delay(void)$/;"	f	file:	signature:(void)
 desc	monitor.c	/^	const char *desc;$/;"	m	struct:Command	file:	access:public
+display_buffer	video.c	/^display_buffer(void) {$/;"	f	signature:(void)
 display_buffer	video.h	/^void display_buffer(void);$/;"	p	signature:(void)
+dividor	draw.c	45;"	d	file:
+dividor	draw.c	59;"	d	file:
 draw_pixel	video.h	/^draw_pixel(int x, int y, int color) {$/;"	f	signature:(int x, int y, int color)
 draw_string	video.h	/^void draw_string(const char*, int, int, int);$/;"	p	signature:(const char*, int, int, int)
 eip_file	kdebug.h	/^	const char *eip_file;		\/\/ Source code filename for EIP$/;"	m	struct:Eipdebuginfo	access:public
@@ -116,6 +123,7 @@ entry_pgtable	entrypgdir.c	/^pte_t entry_pgtable[NPTENTRIES] = {$/;"	v
 entry_pgtable	entrypgdir.c	/^pte_t entry_pgtable[NPTENTRIES];$/;"	v
 func	monitor.c	/^	int (*func)(int argc, char** argv, struct Trapframe* tf);$/;"	m	struct:Command	file:	access:public
 getchar	console.c	/^getchar(void)$/;"	f	signature:(void)
+height	draw.c	74;"	d	file:
 i386_init	init.c	/^i386_init(void)$/;"	f	signature:(void)
 iscons	console.c	/^iscons(int fdnum)$/;"	f	signature:(int fdnum)
 kbd_init	console.c	/^kbd_init(void)$/;"	f	file:	signature:(void)
@@ -134,8 +142,10 @@ monitor	monitor.h	/^void monitor(struct Trapframe *tf);$/;"	p	signature:(struct 
 name	monitor.c	/^	const char *name;$/;"	m	struct:Command	file:	access:public
 normalmap	console.c	/^static uint8_t normalmap[256] =$/;"	v	file:
 panicstr	init.c	/^const char *panicstr;$/;"	v
+prepare_buffer	video.c	/^prepare_buffer(void) {$/;"	f	signature:(void)
 prepare_buffer	video.h	/^void prepare_buffer(void);$/;"	p	signature:(void)
 putch	printf.c	/^putch(int ch, int *cnt)$/;"	f	file:	signature:(int ch, int *cnt)
+redraw_screen	draw.c	/^redraw_screen() $/;"	f
 relocated	entry.S	/^relocated:$/;"	l
 rpos	console.c	/^	uint32_t rpos;$/;"	m	struct:__anon1	file:	access:public
 runcmd	monitor.c	/^runcmd(char *buf, struct Trapframe *tf)$/;"	f	file:	signature:(char *buf, struct Trapframe *tf)
@@ -151,6 +161,8 @@ spin	entry.S	/^spin:	jmp	spin$/;"	l
 stab_binsearch	kdebug.c	/^stab_binsearch(const struct Stab *stabs, int *region_left, int *region_right,$/;"	f	file:	signature:(const struct Stab *stabs, int *region_left, int *region_right, int type, uintptr_t addr)
 test_backtrace	init.c	/^test_backtrace(int x)$/;"	f	signature:(int x)
 togglecode	console.c	/^static uint8_t togglecode[256] =$/;"	v	file:
+vbuf	video.c	/^static uint8_t vbuf[SCR_SIZE];$/;"	v	file:
 vcprintf	printf.c	/^vcprintf(const char *fmt, va_list ap)$/;"	f	signature:(const char *fmt, va_list ap)
 vmem	video.c	/^uint8_t *vmem = VMEM_ADDR;$/;"	v
+width	draw.c	73;"	d	file:
 wpos	console.c	/^	uint32_t wpos;$/;"	m	struct:__anon1	file:	access:public
