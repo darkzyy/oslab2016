@@ -16,7 +16,7 @@ display_buffer(void) {
 }
 
 void
-draw_square(int x, int y, int color, int len) {
+draw_square(int y, int x, int color, int len) {
 	assert(len >= 0);
 	int i,j;
 	for(j = 0;j < len;j++) {
