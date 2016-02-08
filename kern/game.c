@@ -35,8 +35,8 @@ protag_infrontof_box(int right, int down) { // if false return 0,else return box
 				box[1].y == protag.y+down) {
 		return 2;
 	}
-	else if(box[1].x == protag.x+right &&
-				box[1].y == protag.y+down) {
+	else if(box[2].x == protag.x+right &&
+				box[2].y == protag.y+down) {
 		return 3;
 	}
 	else {
@@ -46,7 +46,8 @@ protag_infrontof_box(int right, int down) { // if false return 0,else return box
 
 static int
 protag_movable(int right, int down) {
-	if(map[next_x][next_y] == game_wall) {
+	if(map[next_y][next_x] == game_wall) {
+		cprintf("reason 1\n");
 		return false;
 	}
 	int box_index = protag_infrontof_box(right, down);
@@ -55,8 +56,9 @@ protag_movable(int right, int down) {
 	}
 	else{
 		box_index -= 1;
-		int target_area = map[next_box_x(box_index)][next_box_y(box_index)];
+		int target_area = map[next_box_y(box_index)][next_box_x(box_index)];
 		if(target_area == game_wall) {
+			cprintf("reason 2\n");
 			return false;
 		}
 		else if(box_index != 0 && 
@@ -64,6 +66,7 @@ protag_movable(int right, int down) {
 					  next_box_y(box_index) == box[1].y ) || 
 					 (next_box_x(box_index) == box[2].x &&
 					  next_box_y(box_index) == box[2].y ))) {
+			cprintf("reason 3\n");
 			return false;
 		}
 		else if(box_index != 1 && 
@@ -71,6 +74,7 @@ protag_movable(int right, int down) {
 					  next_box_y(box_index) == box[0].y ) || 
 					 (next_box_x(box_index) == box[2].x &&
 					  next_box_y(box_index) == box[2].y ))) {
+			cprintf("reason 4\n");
 			return false;
 		}
 		else if(box_index != 2 && 
@@ -78,6 +82,7 @@ protag_movable(int right, int down) {
 					  next_box_y(box_index) == box[0].y ) || 
 					 (next_box_x(box_index) == box[1].x &&
 					  next_box_y(box_index) == box[1].y ))) {
+			cprintf("reason 5\n");
 			return false;
 		}
 		else {
@@ -105,9 +110,9 @@ protag_move(int right, int down) {
 
 static int
 victory() {
-	if(map[box[0].x][box[0].y] == game_dest && 
-				map[box[1].x][box[1].y] == game_dest &&
-				map[box[2].x][box[2].y] == game_dest) {
+	if(map[box[0].y][box[0].x] == game_dest && 
+				map[box[1].y][box[1].x] == game_dest &&
+				map[box[2].y][box[2].x] == game_dest) {
 		return true;
 	}
 	else{
