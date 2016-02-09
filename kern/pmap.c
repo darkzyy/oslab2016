@@ -394,7 +394,7 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 //
 // Map [va, va+size) of virtual address space to physical [pa, pa+size)
 // in the page table rooted at pgdir.  Size is a multiple of PGSIZE, and
-// va and pa are both page-aligned.
+// va and pa are both page-aligned. !!!!
 // Use permission bits perm|PTE_P for the entries.
 //
 // This function is only intended to set up the ``static'' mappings
@@ -405,7 +405,14 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 static void
 boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
 {
-	// Fill this function in
+	int pgamt = ROUNDUP((size_t) size, PGSIZE);
+	int i;
+	for(i = 0; i < pgamt; i++){
+		pte_t* pt = pgdir_walk(pgdir, (void *) va, 1);//create
+		*pt = pa | PTE_P | perm; //pa is page aligned;
+		va += PGSIZE;
+		pa += PGSIZE;
+	}
 }
 
 //
