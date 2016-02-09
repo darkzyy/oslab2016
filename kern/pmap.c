@@ -205,7 +205,7 @@ mem_init(void)
 
 #define _MY_BMR_
 #ifdef _MY_BMR_
-	boot_map_region(kern_pgdir, KERNBASE, npages*PGSIZE, 0, PTE_W);
+	boot_map_region(kern_pgdir, KERNBASE, ~0, 0, PTE_W);
 #else
 	boot_map_region(kern_pgdir, KERNBASE, -KERNBASE, 0, PTE_W);
 #endif
@@ -440,16 +440,27 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 static void
 boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
 {
-	uintptr_t pgamt = ROUNDUP((size_t) size, PGSIZE)/PGSIZE;
+	size_t pgamt;
+	if(size!= ~0){
+		pgamt = size/PGSIZE;
+	}
+	else{
+		pgamt = size;
+	}
+	cprintf("pgamt = %d\n",pgamt);
 	int i;
+	int count = 0;
 	for(i = 0; i < pgamt; i++){
 		pte_t* pt = pgdir_walk(pgdir, (void *) va, 1);//create
 		*pt = (pa-PGOFF(va)) | PTE_P | perm; //pa is page aligned;
 		va += PGSIZE;
 		pa += PGSIZE;
-		if(va == 0)
+		count += 1;
+		if(va == 0){
 			break;
+		}
 	}
+	cprintf("mapped %d pages\n",count);
 }
 #else
 void
@@ -457,14 +468,18 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 {
 	uintptr_t limit = va+size;
 	limit = (limit == 0)?(~0):(limit);
+	int count = 0;
 	while(va < limit){
 		pte_t* pgte = pgdir_walk(pgdir, (void *)va, 1);
 		*pgte = perm | PTE_P | (pa - PGOFF(va));
 		va += PGSIZE;
 		pa += PGSIZE;
-		if(va == 0)
+		count += 1;
+		if(va == 0){
 			break;
+		}
 	}
+	cprintf("mapped %d pages\n",count);
 }
 #endif
 //
