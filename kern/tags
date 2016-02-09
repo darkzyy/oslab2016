@@ -1,0 +1,214 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ALT	console.c	218;"	d	file:
+C	console.c	285;"	d	file:
+CAPSLOCK	console.c	220;"	d	file:
+CGA_BASE	console.h	13;"	d
+CGA_BUF	console.h	14;"	d
+CHECKSUM	entry.S	/^#define CHECKSUM (-(MULTIBOOT_HEADER_MAGIC + MULTIBOOT_HEADER_FLAGS))$/;"	d
+CMDBUF_SIZE	monitor.c	14;"	d	file:
+COM1	console.c	26;"	d	file:
+COM_DLL	console.c	30;"	d	file:
+COM_DLM	console.c	31;"	d	file:
+COM_FCR	console.c	35;"	d	file:
+COM_IER	console.c	32;"	d	file:
+COM_IER_RDI	console.c	33;"	d	file:
+COM_IIR	console.c	34;"	d	file:
+COM_LCR	console.c	36;"	d	file:
+COM_LCR_DLAB	console.c	37;"	d	file:
+COM_LCR_WLEN8	console.c	38;"	d	file:
+COM_LSR	console.c	43;"	d	file:
+COM_LSR_DATA	console.c	44;"	d	file:
+COM_LSR_TSRE	console.c	46;"	d	file:
+COM_LSR_TXRDY	console.c	45;"	d	file:
+COM_MCR	console.c	39;"	d	file:
+COM_MCR_DTR	console.c	41;"	d	file:
+COM_MCR_OUT2	console.c	42;"	d	file:
+COM_MCR_RTS	console.c	40;"	d	file:
+COM_RX	console.c	28;"	d	file:
+COM_TX	console.c	29;"	d	file:
+CONSBUFSIZE	console.c	381;"	d	file:
+CRT_COLS	console.h	17;"	d
+CRT_ROWS	console.h	16;"	d
+CRT_SIZE	console.h	18;"	d
+CTL	console.c	217;"	d	file:
+Command	monitor.c	/^struct Command {$/;"	s	file:
+Command::desc	monitor.c	/^	const char *desc;$/;"	m	struct:Command	file:	access:public
+Command::func	monitor.c	/^	int (*func)(int argc, char** argv, struct Trapframe* tf);$/;"	m	struct:Command	file:	access:public
+Command::name	monitor.c	/^	const char *name;$/;"	m	struct:Command	file:	access:public
+E0ESC	console.c	224;"	d	file:
+Eipdebuginfo	kdebug.h	/^struct Eipdebuginfo {$/;"	s
+Eipdebuginfo::eip_file	kdebug.h	/^	const char *eip_file;		\/\/ Source code filename for EIP$/;"	m	struct:Eipdebuginfo	access:public
+Eipdebuginfo::eip_fn_addr	kdebug.h	/^	uintptr_t eip_fn_addr;		\/\/ Address of start of function$/;"	m	struct:Eipdebuginfo	access:public
+Eipdebuginfo::eip_fn_name	kdebug.h	/^	const char *eip_fn_name;	\/\/ Name of function containing EIP$/;"	m	struct:Eipdebuginfo	access:public
+Eipdebuginfo::eip_fn_namelen	kdebug.h	/^	int eip_fn_namelen;		\/\/ Length of function name$/;"	m	struct:Eipdebuginfo	access:public
+Eipdebuginfo::eip_fn_narg	kdebug.h	/^	int eip_fn_narg;		\/\/ Number of function arguments$/;"	m	struct:Eipdebuginfo	access:public
+Eipdebuginfo::eip_line	kdebug.h	/^	int eip_line;			\/\/ Source code linenumber for EIP$/;"	m	struct:Eipdebuginfo	access:public
+JOS_KERN_KDEBUG_H	kdebug.h	2;"	d
+JOS_KERN_MONITOR_H	monitor.h	2;"	d
+LEN	game_draw.c	46;"	d	file:
+LEN	game_draw.c	6;"	d	file:
+MAXARGS	monitor.c	70;"	d	file:
+MONO_BASE	console.h	11;"	d
+MONO_BUF	console.h	12;"	d
+MULTIBOOT_HEADER_FLAGS	entry.S	/^#define MULTIBOOT_HEADER_FLAGS (0)$/;"	d
+MULTIBOOT_HEADER_MAGIC	entry.S	/^#define MULTIBOOT_HEADER_MAGIC (0x1BADB002)$/;"	d
+NCOMMANDS	monitor.c	28;"	d	file:
+NO	console.c	214;"	d	file:
+NUMLOCK	console.c	221;"	d	file:
+PIC	draw.c	6;"	d	file:
+RELOC	entry.S	/^#define	RELOC(x) ((x) - KERNBASE)$/;"	d
+SCROLLLOCK	console.c	222;"	d	file:
+SCR_HEIGHT	video.h	9;"	d
+SCR_SIZE	video.h	10;"	d
+SCR_WIDTH	video.h	8;"	d
+SHIFT	console.c	216;"	d	file:
+SRL	entry.S	/^#define SRL(val, shamt)		(((val) >> (shamt)) & ~(-1 << (32 - (shamt))))$/;"	d
+VMEM_ADDR	video.h	11;"	d
+WHITESPACE	monitor.c	69;"	d	file:
+_CONSOLE_H_	console.h	4;"	d
+_CONSOLE_H_	video.h	2;"	d
+_DRAW_H_	draw.h	2;"	d
+_GAME_DRAW_H_	game_draw.h	2;"	d
+_GAME_H_	game.h	2;"	d
+_GAME_LAYOUT_H_	game_layout.h	2;"	d
+__anon1::buf	console.c	/^	uint8_t buf[CONSBUFSIZE];$/;"	m	struct:__anon1	file:	access:public
+__anon1::rpos	console.c	/^	uint32_t rpos;$/;"	m	struct:__anon1	file:	access:public
+__anon1::wpos	console.c	/^	uint32_t wpos;$/;"	m	struct:__anon1	file:	access:public
+_panic	init.c	/^_panic(const char *file, int line, const char *fmt,...)$/;"	f	signature:(const char *file, int line, const char *fmt,...)
+_start	entry.S	/^_start = RELOC(entry)$/;"	d
+_warn	init.c	/^_warn(const char *file, int line, const char *fmt,...)$/;"	f	signature:(const char *file, int line, const char *fmt,...)
+addr_6845	console.c	/^static unsigned addr_6845;$/;"	v	file:
+anchor_border_bottom	draw.c	49;"	d	file:
+anchor_border_left	draw.c	46;"	d	file:
+anchor_border_right	draw.c	48;"	d	file:
+anchor_border_top	draw.c	47;"	d	file:
+black	game_draw.h	9;"	d
+blue	game_draw.h	6;"	d
+bootstack	entry.S	/^bootstack:$/;"	l
+bootstacktop	entry.S	/^bootstacktop:$/;"	l
+box	game.c	/^struct pos protag, box[3];$/;"	v	typeref:struct:
+buf	console.c	/^	uint8_t buf[CONSBUFSIZE];$/;"	m	struct:__anon1	file:	access:public
+c	draw.c	/^static int c[width*height]=PIC;$/;"	v	file:
+cga_init	console.c	/^cga_init(void)$/;"	f	file:	signature:(void)
+cga_putc	console.c	/^cga_putc(int c)$/;"	f	file:	signature:(int c)
+charcode	console.c	/^static uint8_t *charcode[4] = {$/;"	v	file:
+commands	monitor.c	/^static struct Command commands[] = {$/;"	v	typeref:struct:Command	file:
+cons	console.c	/^} cons;$/;"	v	typeref:struct:__anon1	file:
+cons_getc	console.c	/^cons_getc(void)$/;"	f	signature:(void)
+cons_getc	console.h	/^int cons_getc(void);$/;"	p	signature:(void)
+cons_init	console.c	/^cons_init(void)$/;"	f	signature:(void)
+cons_init	console.h	/^void cons_init(void);$/;"	p	signature:(void)
+cons_intr	console.c	/^cons_intr(int (*proc)(void))$/;"	f	file:	signature:(int (*proc)(void))
+cons_intr	console.c	/^static void cons_intr(int (*proc)(void));$/;"	p	file:	signature:(int (*proc)(void))
+cons_putc	console.c	/^cons_putc(int c)$/;"	f	file:	signature:(int c)
+cons_putc	console.c	/^static void cons_putc(int c);$/;"	p	file:	signature:(int c)
+cprintf	printf.c	/^cprintf(const char *fmt, ...)$/;"	f	signature:(const char *fmt, ...)
+cputchar	console.c	/^cputchar(int c)$/;"	f	signature:(int c)
+crt_buf	console.c	/^static uint16_t *crt_buf;$/;"	v	file:
+crt_pos	console.c	/^static uint16_t crt_pos;$/;"	v	file:
+ctlmap	console.c	/^static uint8_t ctlmap[256] =$/;"	v	file:
+debuginfo_eip	kdebug.c	/^debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)$/;"	f	signature:(uintptr_t addr, struct Eipdebuginfo *info)
+debuginfo_eip	kdebug.h	/^int debuginfo_eip(uintptr_t eip, struct Eipdebuginfo *info);$/;"	p	signature:(uintptr_t eip, struct Eipdebuginfo *info)
+delay	console.c	/^delay(void)$/;"	f	file:	signature:(void)
+desc	monitor.c	/^	const char *desc;$/;"	m	struct:Command	file:	access:public
+display_buffer	video.c	/^display_buffer(void) {$/;"	f	signature:(void)
+display_buffer	video.h	/^void display_buffer(void);$/;"	p	signature:(void)
+draw_box	game_draw.c	/^draw_box() { \/*and protagonist*\/$/;"	f	file:
+draw_color	draw.c	/^draw_color()$/;"	f
+draw_color	draw.h	/^void draw_color();$/;"	p	signature:()
+draw_map	game_draw.c	/^draw_map() {$/;"	f	file:
+draw_pixel	video.h	/^draw_pixel(int x, int y, int color) {$/;"	f	signature:(int x, int y, int color)
+draw_square	video.c	/^draw_square(int x, int y, int color, int len) {$/;"	f	signature:(int x, int y, int color, int len)
+draw_square	video.h	/^void draw_square(int x, int y, int color, int len);$/;"	p	signature:(int x, int y, int color, int len)
+draw_string	video.h	/^void draw_string(const char*, int, int, int);$/;"	p	signature:(const char*, int, int, int)
+draw_tux	draw.c	/^draw_tux() $/;"	f
+draw_tux	draw.h	/^void draw_tux();$/;"	p	signature:()
+eip_file	kdebug.h	/^	const char *eip_file;		\/\/ Source code filename for EIP$/;"	m	struct:Eipdebuginfo	access:public
+eip_fn_addr	kdebug.h	/^	uintptr_t eip_fn_addr;		\/\/ Address of start of function$/;"	m	struct:Eipdebuginfo	access:public
+eip_fn_name	kdebug.h	/^	const char *eip_fn_name;	\/\/ Name of function containing EIP$/;"	m	struct:Eipdebuginfo	access:public
+eip_fn_namelen	kdebug.h	/^	int eip_fn_namelen;		\/\/ Length of function name$/;"	m	struct:Eipdebuginfo	access:public
+eip_fn_narg	kdebug.h	/^	int eip_fn_narg;		\/\/ Number of function arguments$/;"	m	struct:Eipdebuginfo	access:public
+eip_line	kdebug.h	/^	int eip_line;			\/\/ Source code linenumber for EIP$/;"	m	struct:Eipdebuginfo	access:public
+entry	entry.S	/^entry:$/;"	l
+entry_pgdir	entrypgdir.c	/^pde_t entry_pgdir[NPDENTRIES] = {$/;"	v
+entry_pgtable	entrypgdir.c	/^pte_t entry_pgtable[NPTENTRIES] = {$/;"	v
+entry_pgtable	entrypgdir.c	/^pte_t entry_pgtable[NPTENTRIES];$/;"	v
+func	monitor.c	/^	int (*func)(int argc, char** argv, struct Trapframe* tf);$/;"	m	struct:Command	file:	access:public
+game_dest	game.h	/^	game_dest,$/;"	e	enum:__anon2
+game_display	game_draw.c	/^game_display(){$/;"	f
+game_display	game_draw.h	/^void game_display();$/;"	p	signature:()
+game_loop	game.c	/^game_loop(void) { \/* driven by keyboard interuption *\/$/;"	f	signature:(void)
+game_loop	game.h	/^void game_loop();$/;"	p	signature:()
+game_out	game.h	/^	game_out$/;"	e	enum:__anon2
+game_space	game.h	/^	game_space = 0,$/;"	e	enum:__anon2
+game_wall	game.h	/^	game_wall,$/;"	e	enum:__anon2
+getchar	console.c	/^getchar(void)$/;"	f	signature:(void)
+grey	game_draw.h	5;"	d
+height	draw.c	40;"	d	file:
+i386_init	init.c	/^i386_init(void)$/;"	f	signature:(void)
+iscons	console.c	/^iscons(int fdnum)$/;"	f	signature:(int fdnum)
+kbd_init	console.c	/^kbd_init(void)$/;"	f	file:	signature:(void)
+kbd_intr	console.c	/^kbd_intr(void)$/;"	f	signature:(void)
+kbd_intr	console.h	/^void kbd_intr(void); \/\/ irq 1$/;"	p	signature:(void)
+kbd_proc_data	console.c	/^kbd_proc_data(void)$/;"	f	file:	signature:(void)
+lpt_putc	console.c	/^lpt_putc(int c)$/;"	f	file:	signature:(int c)
+map	game_layout.h	/^static int map[9][9] = {$/;"	v
+mon_backtrace	monitor.c	/^mon_backtrace(int argc, char **argv, struct Trapframe *tf)$/;"	f	signature:(int argc, char **argv, struct Trapframe *tf)
+mon_backtrace	monitor.h	/^int mon_backtrace(int argc, char **argv, struct Trapframe *tf);$/;"	p	signature:(int argc, char **argv, struct Trapframe *tf)
+mon_help	monitor.c	/^mon_help(int argc, char **argv, struct Trapframe *tf)$/;"	f	signature:(int argc, char **argv, struct Trapframe *tf)
+mon_help	monitor.h	/^int mon_help(int argc, char **argv, struct Trapframe *tf);$/;"	p	signature:(int argc, char **argv, struct Trapframe *tf)
+mon_kerninfo	monitor.c	/^mon_kerninfo(int argc, char **argv, struct Trapframe *tf)$/;"	f	signature:(int argc, char **argv, struct Trapframe *tf)
+mon_kerninfo	monitor.h	/^int mon_kerninfo(int argc, char **argv, struct Trapframe *tf);$/;"	p	signature:(int argc, char **argv, struct Trapframe *tf)
+monitor	monitor.c	/^monitor(struct Trapframe *tf)$/;"	f	signature:(struct Trapframe *tf)
+monitor	monitor.h	/^void monitor(struct Trapframe *tf);$/;"	p	signature:(struct Trapframe *tf)
+move_area_height	draw.c	43;"	d	file:
+move_area_width	draw.c	44;"	d	file:
+name	monitor.c	/^	const char *name;$/;"	m	struct:Command	file:	access:public
+next_box_x	game.c	13;"	d	file:
+next_box_y	game.c	14;"	d	file:
+next_x	game.c	11;"	d	file:
+next_y	game.c	12;"	d	file:
+normalmap	console.c	/^static uint8_t normalmap[256] =$/;"	v	file:
+panicstr	init.c	/^const char *panicstr;$/;"	v
+pink	game_draw.h	8;"	d
+pos	game.h	/^struct pos{$/;"	s
+pos::x	game.h	/^    int x;$/;"	m	struct:pos	access:public
+pos::y	game.h	/^    int y;$/;"	m	struct:pos	access:public
+position_init	game.c	/^position_init() {$/;"	f	file:
+prepare_buffer	video.c	/^prepare_buffer(void) {$/;"	f	signature:(void)
+prepare_buffer	video.h	/^void prepare_buffer(void);$/;"	p	signature:(void)
+protag	game.c	/^struct pos protag, box[3];$/;"	v	typeref:struct:pos
+protag_infrontof_box	game.c	/^protag_infrontof_box(int right, int down) { \/\/ if false return 0,else return box index + 1$/;"	f	file:	signature:(int right, int down)
+protag_movable	game.c	/^protag_movable(int right, int down) {$/;"	f	file:	signature:(int right, int down)
+protag_move	game.c	/^protag_move(int right, int down) {$/;"	f	file:	signature:(int right, int down)
+putch	printf.c	/^putch(int ch, int *cnt)$/;"	f	file:	signature:(int ch, int *cnt)
+red	game_draw.h	10;"	d
+relocated	entry.S	/^relocated:$/;"	l
+rpos	console.c	/^	uint32_t rpos;$/;"	m	struct:__anon1	file:	access:public
+runcmd	monitor.c	/^runcmd(char *buf, struct Trapframe *tf)$/;"	f	file:	signature:(char *buf, struct Trapframe *tf)
+serial_exists	console.c	/^static bool serial_exists;$/;"	v	file:
+serial_init	console.c	/^serial_init(void)$/;"	f	file:	signature:(void)
+serial_intr	console.c	/^serial_intr(void)$/;"	f	signature:(void)
+serial_intr	console.h	/^void serial_intr(void); \/\/ irq 4$/;"	p	signature:(void)
+serial_proc_data	console.c	/^serial_proc_data(void)$/;"	f	file:	signature:(void)
+serial_putc	console.c	/^serial_putc(int c)$/;"	f	file:	signature:(int c)
+shiftcode	console.c	/^static uint8_t shiftcode[256] =$/;"	v	file:
+shiftmap	console.c	/^static uint8_t shiftmap[256] =$/;"	v	file:
+spin	entry.S	/^spin:	jmp	spin$/;"	l
+stab_binsearch	kdebug.c	/^stab_binsearch(const struct Stab *stabs, int *region_left, int *region_right,$/;"	f	file:	signature:(const struct Stab *stabs, int *region_left, int *region_right, int type, uintptr_t addr)
+test_backtrace	init.c	/^test_backtrace(int x)$/;"	f	signature:(int x)
+togglecode	console.c	/^static uint8_t togglecode[256] =$/;"	v	file:
+vbuf	video.c	/^uint8_t vbuf[SCR_SIZE];$/;"	v
+vcprintf	printf.c	/^vcprintf(const char *fmt, va_list ap)$/;"	f	signature:(const char *fmt, va_list ap)
+victory	game.c	/^victory() {$/;"	f	file:
+vmem	video.c	/^uint8_t *vmem = VMEM_ADDR;$/;"	v
+width	draw.c	39;"	d	file:
+wpos	console.c	/^	uint32_t wpos;$/;"	m	struct:__anon1	file:	access:public
+x	game.h	/^    int x;$/;"	m	struct:pos	access:public
+y	game.h	/^    int y;$/;"	m	struct:pos	access:public
+yellow	game_draw.h	7;"	d

@@ -8,6 +8,8 @@
 #include <kern/console.h>
 #include <kern/pmap.h>
 #include <kern/kclock.h>
+#include <kern/draw.h>
+#include <kern/game.h>
 
 
 void
@@ -28,6 +30,10 @@ i386_init(void)
 
 	// Lab 2 memory management initialization functions
 	mem_init();
+
+	cprintf("kernel is entering draw\n");
+	game_loop();
+	cprintf("kernel is leaving draw\n");
 
 	// Drop into the kernel monitor.
 	while (1)
