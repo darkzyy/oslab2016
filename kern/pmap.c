@@ -71,7 +71,7 @@ static void check_page_installed_pgdir(void);
 // up its virtual memory system.  page_alloc() is the real allocator.
 //
 // If n>0, allocates enough pages of contiguous physical memory to hold 'n'
-// bytes.  Doesn't initialize the memory.  Returns a kernel virtual address.
+// bytes.  Doesn't initialize the memory.  Returns a *kernel virtual address.*
 //
 // If n==0, returns the address of the next free page without allocating
 // anything.
@@ -89,7 +89,7 @@ boot_alloc(uint32_t n)
 	// the first virtual address that the linker did *not* assign
 	// to any kernel code or global variables.
 	if (!nextfree) {
-		extern char end[];
+		extern char end[];// KVA!!
 		nextfree = ROUNDUP((char *) end, PGSIZE);
 	}
 
@@ -105,6 +105,7 @@ boot_alloc(uint32_t n)
 		return nextfree;
 	}
 	else{
+		log2("nextfree: 0x%x",nextfree);
 		result = nextfree;
 		nextfree = ROUNDUP((char *) (n+nextfree), PGSIZE);
 		return result;
@@ -330,8 +331,6 @@ page_alloc(int alloc_flags)
 	}
 	struct PageInfo *page_allocated = page_free_list;
 	page_free_list = page_free_list->pp_link ;
-	// page_allocated->pp_ref = 1;
-	// caller increase!
 	//page_allocated->pp_link = NULL;
 	memset(page_allocated, 0, sizeof(struct PageInfo));
 	if(alloc_flags & ALLOC_ZERO){

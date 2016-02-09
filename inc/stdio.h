@@ -37,4 +37,9 @@ char*	readline(const char *prompt);
 		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
 	} while(0)
 
+#define log3(format,...)	\
+	do {\
+		cprintf("LAB3:\t"format"\tin %s,function %s, line: %d\n",\
+		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
+	} while(0)
 #endif /* !JOS_INC_STDIO_H */
