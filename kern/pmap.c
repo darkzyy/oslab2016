@@ -372,6 +372,8 @@ page_decref(struct PageInfo* pp)
 // Hint 3: look at inc/mmu.h for useful macros that mainipulate page
 // table and page directory entries.
 //
+#define _MY_PG_WALK_
+#ifndef _MY_PG_WALK_
 pte_t *
 pgdir_walk(pde_t *pgdir, const void *va, int create)
 {
@@ -391,12 +393,12 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 	}
 	return pgte;
 }
-/*
+#else
 pte_t *
 pgdir_walk(pde_t *pgdir, const void *va, int create)
 {
 	pte_t *pt, *pt_base;
-	if(pgdir[PDX(va)] | PTE_P){ // present
+	if(pgdir[PDX(va)] & PTE_P){ // present
 		uint32_t pt_base_pa = PTE_ADDR(pgdir[PDX(va)]);
 		void* pt_base_kva = KADDR(pt_base_pa);
 		pt_base = (pte_t *)pt_base_kva;
@@ -422,9 +424,8 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 	else{ // !create
 		return NULL;
 	}
-
 }
-*/
+#endif //ndef _MY_PG_WALK_
 //
 // Map [va, va+size) of virtual address space to physical [pa, pa+size)
 // in the page table rooted at pgdir.  Size is a multiple of PGSIZE, and
