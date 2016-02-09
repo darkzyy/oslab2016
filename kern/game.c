@@ -122,6 +122,7 @@ victory() {
 
 void
 game_loop(void) { /* driven by keyboard interuption */
+__game_restart:
 	position_init();
 	game_display();
 	while(1) {
@@ -138,7 +139,8 @@ game_loop(void) { /* driven by keyboard interuption */
 		else if(getch == 'w') {
 			protag_move(0, -1);
 		}
-		else if(getch == 'v') {
+		else if(getch == 'r') {
+			goto __game_restart;
 		}
 		else{
 			continue;
