@@ -362,8 +362,33 @@ page_decref(struct PageInfo* pp)
 pte_t *
 pgdir_walk(pde_t *pgdir, const void *va, int create)
 {
-	// Fill this function in
-	return NULL;
+	pte_t *pt, *pt_base;
+	if(pgdir[PDX(va)] | PTE_P){ // present
+		uint32_t pt_base_pa = PTE_ADDR(pgdir[PDX(va)]);
+		void* pt_base_kva = KADDR(pt_base_pa);
+		pt_base = (pte_t *)pt_base_kva;
+		pt = &pt_base[PTX(va)];
+		return pt;
+	}
+	else if(create == 1){
+		struct PageInfo *page_as_pt = page_alloc(ALLOC_ZERO);
+		if(page_as_pt != NULL){
+			page_as_pt->pp_ref++;
+			pt_base = ((pte_t *) page2kva(page_as_pt));
+			/*kernel access page table by kernel virtual address*/
+			pt = &pt_base[PTX(va)];
+			pgdir[PDX(va)] = page2pa(page_as_pt)/*phsical mm is used in mmu!*/ 
+				| PTE_P | PTE_W | PTE_U;//why PTE_U is set?
+			return pt;
+		}
+		else{ //fail to alloc
+			return NULL;
+		}
+	}
+	else{ // !create
+		return NULL;
+	}
+
 }
 
 //
