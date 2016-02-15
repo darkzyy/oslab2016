@@ -190,6 +190,10 @@ trap_dispatch(struct Trapframe *tf)
 		case T_PGFLT:
 			page_fault_handler(tf);
 			return;
+		case T_BRKPT:
+			log3("breakpoint hit");
+			while(1) monitor(tf);
+			return;
 	}
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
