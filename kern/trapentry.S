@@ -105,3 +105,10 @@ _alltraps:
 
 	pushl %esp
 	call trap
+	popl %esp
+
+	popal
+	popl %es
+	popl %ds
+	addl $8, %esp /*why ?*/
+	iret
