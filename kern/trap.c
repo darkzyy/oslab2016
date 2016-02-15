@@ -105,10 +105,7 @@ trap_init(void)
 	SETGATE(idt[IRQ_OFFSET+13], 0, GD_KT, irq_13, 0);
 	SETGATE(idt[IRQ_OFFSET+14], 0, GD_KT, irq_14, 0);
 	SETGATE(idt[IRQ_OFFSET+15], 0, GD_KT, irq_15, 0);
-	SETGATE(idt[IRQ_OFFSET+16], 0, GD_KT, irq_16, 0);
-	SETGATE(idt[IRQ_OFFSET+17], 0, GD_KT, irq_17, 0);
-	SETGATE(idt[IRQ_OFFSET+18], 0, GD_KT, irq_18, 0);
-	SETGATE(idt[IRQ_OFFSET+19], 0, GD_KT, irq_19, 0);
+
 	// Per-CPU setup 
 	trap_init_percpu();
 }
@@ -186,6 +183,7 @@ trap_dispatch(struct Trapframe *tf)
 {
 	// Handle processor exceptions.
 	// LAB 3: Your code here.
+	log3();
 	switch(tf->tf_trapno) {
 		case T_PGFLT:
 			page_fault_handler(tf);
