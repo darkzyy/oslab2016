@@ -634,7 +634,17 @@ int
 user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
 	// LAB 3: Your code here.
-
+	
+	uintptr_t start = ROUNDDOWN((uintptr_t)va, PGSIZE);
+	uintptr_t limit = ROUNDUP((uintptr_t)va + len, PGSIZE);
+	pte_t* pte_store;
+	while(start < limit){
+		struct PageInfo * pp = page_lookup(env->env_pgdir,(void *) start, &pte_store);
+		if(!(*pte_store & perm)){
+			return -1;
+		}
+		start += PGSIZE;
+	}
 	return 0;
 }
 

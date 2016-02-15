@@ -86,7 +86,7 @@ trap_init(void)
 	SETGATE(idt[18], 0, GD_KT, vec18, 3);
 	SETGATE(idt[19], 0, GD_KT, vec19, 3);
 
-	SETGATE(idt[48], 0, GD_KT, vec48, 3);
+	SETGATE(idt[T_SYSCALL], 0, GD_KT, vec48, 3);
 	SETGATE(idt[T_DEFAULT], 0, GD_KT, vecall, 3);
 
 	SETGATE(idt[IRQ_OFFSET+0], 0, GD_KT, irq_0, 3);
@@ -202,6 +202,8 @@ trap_dispatch(struct Trapframe *tf)
 							tf->tf_regs.reg_edi,
 							tf->tf_regs.reg_esi);
 			return;
+		default:
+			log3("default dispatch");
 	}
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
