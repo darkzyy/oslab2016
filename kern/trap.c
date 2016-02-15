@@ -65,7 +65,50 @@ trap_init(void)
 	extern struct Segdesc gdt[];
 
 	// LAB 3: Your code here.
+	SETGATE(idt[0], 0, GD_KT, vec0, 3);
+	SETGATE(idt[1], 0, GD_KT, vec1, 3);
+	SETGATE(idt[2], 0, GD_KT, vec2, 3);
+	SETGATE(idt[3], 0, GD_KT, vec3, 3);
+	SETGATE(idt[4], 0, GD_KT, vec4, 3);
+	SETGATE(idt[5], 0, GD_KT, vec5, 3);
+	SETGATE(idt[6], 0, GD_KT, vec6, 3);
+	SETGATE(idt[7], 0, GD_KT, vec7, 3);
+	SETGATE(idt[8], 0, GD_KT, vec8, 3);
 
+	SETGATE(idt[10], 0, GD_KT, vec10, 3);
+	SETGATE(idt[11], 0, GD_KT, vec11, 3);
+	SETGATE(idt[12], 0, GD_KT, vec12, 3);
+	SETGATE(idt[13], 0, GD_KT, vec13, 3);
+	SETGATE(idt[14], 0, GD_KT, vec14, 3);
+
+	SETGATE(idt[16], 0, GD_KT, vec16, 3);
+	SETGATE(idt[17], 0, GD_KT, vec17, 3);
+	SETGATE(idt[18], 0, GD_KT, vec18, 3);
+	SETGATE(idt[19], 0, GD_KT, vec19, 3);
+
+	SETGATE(idt[48], 0, GD_KT, vec48, 3);
+	SETGATE(idt[T_DEFAULT], 0, GD_KT, vecall, 3);
+
+	SETGATE(idt[IRQ_OFFSET+0], 0, GD_KT, irq_0, 3);
+	SETGATE(idt[IRQ_OFFSET+1], 0, GD_KT, irq_1, 0);
+	SETGATE(idt[IRQ_OFFSET+2], 0, GD_KT, irq_2, 0);
+	SETGATE(idt[IRQ_OFFSET+3], 0, GD_KT, irq_3, 0);
+	SETGATE(idt[IRQ_OFFSET+4], 0, GD_KT, irq_4, 0);
+	SETGATE(idt[IRQ_OFFSET+5], 0, GD_KT, irq_5, 0);
+	SETGATE(idt[IRQ_OFFSET+6], 0, GD_KT, irq_6, 0);
+	SETGATE(idt[IRQ_OFFSET+7], 0, GD_KT, irq_7, 0);
+	SETGATE(idt[IRQ_OFFSET+8], 0, GD_KT, irq_8, 0);
+	SETGATE(idt[IRQ_OFFSET+9], 0, GD_KT, irq_9, 0);
+	SETGATE(idt[IRQ_OFFSET+10], 0, GD_KT, irq_10, 0);
+	SETGATE(idt[IRQ_OFFSET+11], 0, GD_KT, irq_11, 0);
+	SETGATE(idt[IRQ_OFFSET+12], 0, GD_KT, irq_12, 0);
+	SETGATE(idt[IRQ_OFFSET+13], 0, GD_KT, irq_13, 0);
+	SETGATE(idt[IRQ_OFFSET+14], 0, GD_KT, irq_14, 0);
+	SETGATE(idt[IRQ_OFFSET+15], 0, GD_KT, irq_15, 0);
+	SETGATE(idt[IRQ_OFFSET+16], 0, GD_KT, irq_16, 0);
+	SETGATE(idt[IRQ_OFFSET+17], 0, GD_KT, irq_17, 0);
+	SETGATE(idt[IRQ_OFFSET+18], 0, GD_KT, irq_18, 0);
+	SETGATE(idt[IRQ_OFFSET+19], 0, GD_KT, irq_19, 0);
 	// Per-CPU setup 
 	trap_init_percpu();
 }
