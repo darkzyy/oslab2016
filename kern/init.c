@@ -39,16 +39,9 @@ i386_init(void)
 
 	// Lab 2 memory management initialization functions
 	mem_init();
-	log3("JOS has initiated mem");
-//#define _MY_GAME_
-#ifndef _MY_GAME_
 	// Lab 3 user environment initialization functions
-	log3("JOS is going to initiate env");
 	env_init();
-	log3("JOS has initiated env");
-	log3("JOS is going to initiate trap");
 	trap_init();
-	log3("JOS has initiated trap");
 
 	// Lab 4 multiprocessor initialization functions
 	mp_init();
@@ -70,7 +63,6 @@ i386_init(void)
 	log3();
 #else
 	// Touch all you want.
-<<<<<<< HEAD
 	ENV_CREATE(user_primes, ENV_TYPE_USER);
 #endif // TEST*
 
@@ -108,27 +100,6 @@ boot_aps(void)
 		while(c->cpu_status != CPU_STARTED)
 			;
 	}
-=======
-	log3();
-	ENV_CREATE(user_hello, ENV_TYPE_USER);
-	log3();
-#endif // TEST*
-
-
-	log3("finished the lab-embedded TEST");
-	// We only have one user environment for now, so just run it.
-	env_run(&envs[0]);
-
-#else // defined _MY_GAME_
-	cprintf("kernel is entering draw\n");
-	game_loop();
-	cprintf("kernel is leaving draw\n");
-#endif //ifdef _MY_GAME_
-
-	// Drop into the kernel monitor.
-	while (1)
-		monitor(NULL);
->>>>>>> lab3
 }
 
 // Setup code for APs
