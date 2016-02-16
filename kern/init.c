@@ -4,9 +4,6 @@
 #include <inc/string.h>
 #include <inc/assert.h>
 
-#include <kern/draw.h>
-#include <kern/game.h>
-
 #include <kern/monitor.h>
 #include <kern/console.h>
 #include <kern/pmap.h>
@@ -37,7 +34,6 @@ i386_init(void)
 	env_init();
 	trap_init();
 
-//#define _MY_GAME_
 
 #if defined(TEST)
 	// Don't touch -- used by grading script!
@@ -47,16 +43,9 @@ i386_init(void)
 #endif // TEST*
 	ENV_CREATE(user_hello, ENV_TYPE_USER);
 
-#ifndef _MY_GAME_
 
 	// We only have one user environment for now, so just run it.
 	env_run(&envs[0]);
-
-#else // defined _MY_GAME_
-	cprintf("kernel is entering draw\n");
-	game_loop();
-	cprintf("kernel is leaving draw\n");
-#endif //ifdef _MY_GAME_
 
 	// Drop into the kernel monitor.
 	while (1)
