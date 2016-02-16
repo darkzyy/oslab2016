@@ -415,6 +415,7 @@ cons_getc(void)
 	// poll for any pending input characters,
 	// so that this function works even when interrupts are disabled
 	// (e.g., when called from the kernel monitor).
+	
 	serial_intr();
 	kbd_intr();
 
