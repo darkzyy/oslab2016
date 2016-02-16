@@ -624,7 +624,7 @@ static uintptr_t user_mem_check_addr;
 // ULIM, and (2) the page table gives it permission.  These are exactly
 // the tests you should implement here.
 //
-// If there is an error, set the 'user_mem_check_addr' variable to the first
+// If there is an error, set the 'user_mem_check_addr' variable to the *first*
 // erroneous virtual address.
 //
 // Returns 0 if the user program can access this range of addresses,
@@ -635,13 +635,24 @@ user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
 	// LAB 3: Your code here.
 	
+	log3("va addr : 0x%x",va);
+	uintptr_t oaddr = (uintptr_t) va;
 	uintptr_t start = ROUNDDOWN((uintptr_t)va, PGSIZE);
-	uintptr_t limit = ROUNDUP((uintptr_t)va + len, PGSIZE);
+	uintptr_t limit = ROUNDUP(((uintptr_t) va) + len, PGSIZE);
+	log3("start = 0x%x, limit = 0x%x", start, limit);
 	pte_t* pte_store;
 	while(start < limit){
-		struct PageInfo * pp = page_lookup(env->env_pgdir,(void *) start, &pte_store);
-		if(!(*pte_store & perm)){
-			return -1;
+		pte_store = pgdir_walk(env->env_pgdir,(void *) start, 0);
+		if(start>ULIM ||
+					!pte_store ||
+					!((*pte_store & (perm | PTE_P)) == (perm | PTE_P))){
+			if(start < oaddr){
+				user_mem_check_addr = oaddr;
+			}
+			else {
+				user_mem_check_addr = start;
+			}
+			return -E_FAULT;
 		}
 		start += PGSIZE;
 	}

@@ -189,18 +189,13 @@ env_setup_vm(struct Env *e)
 
 	// LAB 3: Your code here.
 
-	log3();
 	e->env_pgdir = (pde_t *) page2kva(p);
-	log3();
 	memmove(page2kva(p), kern_pgdir, PGSIZE);
-	log3();
 	p->pp_ref++; // according to hints above
-	log3();
 
 	// UVPT maps the env's own page table read-only.
 	// Permissions: kernel R, user R
 	e->env_pgdir[PDX(UVPT)] = PADDR(e->env_pgdir) | PTE_P | PTE_U;
-	log3();
 
 	return 0;
 }
@@ -224,10 +219,8 @@ env_alloc(struct Env **newenv_store, envid_t parent_id)
 		return -E_NO_FREE_ENV;
 
 	// Allocate and set up the page directory for this environment.
-	log3();
 	if ((r = env_setup_vm(e)) < 0)
 		return r;
-	log3();
 
 	// Generate an env_id for this environment.
 	generation = (e->env_id + (1 << ENVGENSHIFT)) & ~(NENV - 1);
@@ -517,7 +510,6 @@ env_run(struct Env *e)
 
 	// LAB 3: Your code here.
 
-	log3();
 	if(curenv && curenv->env_status == ENV_RUNNING){
 		curenv->env_status = ENV_RUNNABLE;
 	}
@@ -525,7 +517,6 @@ env_run(struct Env *e)
 	curenv->env_status = ENV_RUNNING;
 	curenv->env_runs++;
 	lcr3(PADDR(curenv->env_pgdir));
-	log3();
 	env_pop_tf(&(curenv->env_tf));
 }
 
