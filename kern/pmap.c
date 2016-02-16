@@ -275,7 +275,12 @@ mem_init_mp(void)
 	//     Permissions: kernel RW, user NONE
 	//
 	// LAB 4: Your code here:
-
+	int i;
+	for(i = 0; i < NCPU; i++) {
+		boot_map_region(kern_pgdir, 
+					KSTACKTOP - KSTKSIZE*(i+1) - KSTKGAP*i,
+					KSTKSIZE, PADDR(percpu_kstacks[i]), PTE_W);
+	}
 }
 
 // --------------------------------------------------------------
@@ -322,7 +327,10 @@ page_init(void)
 	// free pages!
 	size_t i;
 	for (i = 0; i < npages; i++) {
-		if(i >= 1 && i*PGSIZE < IOPHYSMEM){
+		if(i*PGSIZE == MPENTRY_PADDR){
+			pages[i].pp_ref = 1;
+		}
+		else if(i >= 1 && i*PGSIZE < IOPHYSMEM){
 			pages[i].pp_ref = 0;
 			pages[i].pp_link = page_free_list;
 			page_free_list = &pages[i];
@@ -492,7 +500,7 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 	else{
 		pgamt = size;
 	}
-	cprintf("pgamt = %d\n",pgamt);
+	//cprintf("pgamt = %d\n",pgamt);
 	int i;
 	int count = 0;
 	for(i = 0; i < pgamt; i++){
@@ -505,7 +513,7 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 			break;
 		}
 	}
-	cprintf("mapped %d pages\n",count);
+	//cprintf("mapped %d pages\n",count);
 }
 //
 // Map the physical page 'pp' at virtual address 'va'.
@@ -649,7 +657,16 @@ mmio_map_region(physaddr_t pa, size_t size)
 	// Hint: The staff solution uses boot_map_region.
 	//
 	// Your code here:
-	panic("mmio_map_region not implemented");
+	uintptr_t limit = ROUNDUP(base + size, PGSIZE);
+	uintptr_t start = ROUNDDOWN(base, PGSIZE);
+	if(limit > MMIOLIM){
+		panic("mm map overflow\n");
+	}
+	boot_map_region(kern_pgdir, start, limit - start, pa, 
+				PTE_P | PTE_PCD | PTE_PWT | PTE_W);
+	void *res = (void *) base;
+	base = limit;
+	return res;
 }
 
 static uintptr_t user_mem_check_addr;
@@ -782,6 +799,7 @@ check_page_free_list(bool only_low_memory)
 
 	assert(nfree_basemem > 0);
 	assert(nfree_extmem > 0);
+	log4();
 }
 
 //

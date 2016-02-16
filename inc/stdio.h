@@ -42,4 +42,11 @@ char*	readline(const char *prompt);
 		cprintf("LAB3:\t"format"\tin %s,function %s, line: %d\n",\
 		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
 	} while(0)
+
+#define log4(format,...)	\
+	do {\
+		cprintf("LAB4:\t"format"\tin %s,function %s, line: %d\n",\
+		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
+	} while(0)
+
 #endif /* !JOS_INC_STDIO_H */
