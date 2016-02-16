@@ -199,6 +199,12 @@ trap_dispatch(struct Trapframe *tf)
 							tf->tf_regs.reg_edi,
 							tf->tf_regs.reg_esi);
 			return;
+		case IRQ_OFFSET+IRQ_SERIAL:
+			serial_intr();
+			return;
+		case IRQ_OFFSET+IRQ_KBD:
+			kbd_intr();
+			return;
 		default:
 			log3("default dispatch");
 	}
