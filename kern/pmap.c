@@ -694,11 +694,11 @@ user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
 	// LAB 3: Your code here.
 
-	log3("va addr : 0x%x",va);
+	//log3("va addr : 0x%x",va);
 	uintptr_t oaddr = (uintptr_t) va;
 	uintptr_t start = ROUNDDOWN((uintptr_t)va, PGSIZE);
 	uintptr_t limit = ROUNDUP(((uintptr_t) va) + len, PGSIZE);
-	log3("start = 0x%x, limit = 0x%x", start, limit);
+	//log3("start = 0x%x, limit = 0x%x", start, limit);
 	pte_t* pte_store;
 	while(start < limit){
 		pte_store = pgdir_walk(env->env_pgdir,(void *) start, 0);

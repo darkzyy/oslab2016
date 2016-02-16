@@ -29,7 +29,22 @@ sched_yield(void)
 	// below to halt the cpu.
 
 	// LAB 4: Your code here.
-
+	int i;
+	//log4("this cpu id: %d",thiscpu->cpu_id);
+	if(curenv == NULL){
+		curenv = &envs[cpunum()];
+	}
+	int curenv_id = ENVX(curenv->env_id);
+	log4("current env : %d",curenv_id);
+	for(i = curenv_id+1; i != curenv_id; i++){
+		if(i >= NENV){
+			i -= NENV;
+		}
+		if(envs[i].env_status == ENV_RUNNABLE){
+			log4("cpu%d is going to run env %d", cpunum(), i);
+			env_run(&(envs[i]));
+		}
+	}
 	// sched_halt never returns
 	sched_halt();
 }
