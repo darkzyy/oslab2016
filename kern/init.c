@@ -10,6 +10,7 @@
 #include <kern/kclock.h>
 #include <kern/env.h>
 #include <kern/trap.h>
+#include <kern/picirq.h>
 
 
 void
@@ -34,6 +35,8 @@ i386_init(void)
 	env_init();
 	trap_init();
 
+	//init intrrupt
+	pic_init();
 
 #if defined(TEST)
 	// Don't touch -- used by grading script!

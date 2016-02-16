@@ -1,6 +1,7 @@
 
 #include <inc/string.h>
 #include <inc/lib.h>
+#include <inc/x86.h>
 
 void
 cputchar(int ch)
@@ -17,8 +18,7 @@ getchar(void)
 {
 	int r;
 	// sys_cgetc does not block, but getchar should.
-	while ((r = sys_cgetc()) == 0)
-		;
+	while ((r = sys_cgetc()) == 0) ;
 	return r;
 }
 

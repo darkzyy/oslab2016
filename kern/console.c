@@ -7,6 +7,7 @@
 #include <inc/assert.h>
 
 #include <kern/console.h>
+#include <kern/picirq.h>
 
 static void cons_intr(int (*proc)(void));
 static void cons_putc(int c);
@@ -100,6 +101,9 @@ serial_init(void)
 	(void) inb(COM1+COM_IIR);
 	(void) inb(COM1+COM_RX);
 
+	if (serial_exists) {
+		irq_setmask_8259A(irq_mask_8259A & ~(1<<4));
+	}
 }
 
 
@@ -369,6 +373,8 @@ kbd_intr(void)
 static void
 kbd_init(void)
 {
+	  kbd_intr();
+	  irq_setmask_8259A(irq_mask_8259A & ~(1<<1));
 }
 
 
@@ -412,8 +418,8 @@ cons_getc(void)
 	// so that this function works even when interrupts are disabled
 	// (e.g., when called from the kernel monitor).
 	
-	serial_intr();
-	kbd_intr();
+	//serial_intr();
+	//kbd_intr();
 
 	// grab the next character from the input buffer.
 	if (cons.rpos != cons.wpos) {
@@ -460,7 +466,7 @@ getchar(void)
 {
 	int c;
 
-	while ((c = cons_getc()) == 0)
+	while ((c = cons_getc()) == 0);
 		/* do nothing */;
 	return c;
 }
