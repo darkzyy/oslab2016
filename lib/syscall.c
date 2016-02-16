@@ -61,3 +61,14 @@ sys_getenvid(void)
 	 return syscall(SYS_getenvid, 0, 0, 0, 0, 0, 0);
 }
 
+int
+sys_draw_sqr(int x,int y, int color, int len)
+{
+	return syscall(SYS_draw_sqr, x, y, color, len, 0, 0);
+}
+
+int
+sys_display()
+{
+	 return syscall(SYS_display, 0, 0, 0, 0, 0, 0);
+}

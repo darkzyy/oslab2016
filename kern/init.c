@@ -33,31 +33,21 @@ i386_init(void)
 
 	// Lab 2 memory management initialization functions
 	mem_init();
-	log3("JOS has initiated mem");
 //#define _MY_GAME_
 #ifndef _MY_GAME_
 	// Lab 3 user environment initialization functions
-	log3("JOS is going to initiate env");
 	env_init();
-	log3("JOS has initiated env");
-	log3("JOS is going to initiate trap");
 	trap_init();
-	log3("JOS has initiated trap");
 
 #if defined(TEST)
 	// Don't touch -- used by grading script!
-	log3();
 	ENV_CREATE(TEST, ENV_TYPE_USER);
-	log3();
 #else
 	// Touch all you want.
-	log3();
 	ENV_CREATE(user_hello, ENV_TYPE_USER);
-	log3();
 #endif // TEST*
 
 
-	log3("finished the lab-embedded TEST");
 	// We only have one user environment for now, so just run it.
 	env_run(&envs[0]);
 

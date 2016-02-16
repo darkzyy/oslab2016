@@ -1,5 +1,5 @@
-#ifndef _CONSOLE_H_
-#define _CONSOLE_H_
+#ifndef _VIDEO_H_
+#define _VIDEO_H_
 
 #include <inc/assert.h>
 #include <inc/types.h>

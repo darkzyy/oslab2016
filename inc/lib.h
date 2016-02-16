@@ -40,6 +40,9 @@ int	sys_cgetc(void);
 envid_t	sys_getenvid(void);
 int	sys_env_destroy(envid_t);
 
+//video.c
+int sys_draw_sqr(int x, int y, int color, int len);
+int sys_display(void);
 
 
 /* File open modes */

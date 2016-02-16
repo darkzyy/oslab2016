@@ -7,6 +7,8 @@ enum {
 	SYS_cgetc,
 	SYS_getenvid,
 	SYS_env_destroy,
+	SYS_draw_sqr,
+	SYS_display,
 	NSYSCALLS
 };
 
