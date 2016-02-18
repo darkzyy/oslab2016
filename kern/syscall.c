@@ -91,7 +91,7 @@ sys_exofork(void)
     if(err){
         return err;
     }
-    memmove(&newenv->env_tf, &curenv->env_tf, sizeof(struct Env));
+    memmove(&newenv->env_tf, &curenv->env_tf, sizeof(newenv->env_tf));
     newenv->env_status = ENV_NOT_RUNNABLE;
     newenv->env_tf.tf_regs.reg_eax = 0;
     return newenv->env_id;
@@ -184,7 +184,7 @@ sys_page_alloc(envid_t envid, void *va, int perm)
     }
 
     //alloc page
-    struct PageInfo * pp = page_alloc(perm);
+    struct PageInfo * pp = page_alloc(ALLOC_ZERO);
     if(!pp){
         return -E_NO_MEM;
     }
@@ -203,7 +203,11 @@ sys_page_alloc(envid_t envid, void *va, int perm)
     }
     //insert page
     err = page_insert(env_store->env_pgdir, pp, va, perm);
-    return err;
+    if(err){
+        page_free(pp);
+        return err;
+    }
+    return 0;
 }
 
 // Map the page of memory at 'srcva' in srcenvid's address space
@@ -393,7 +397,7 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 		case SYS_yield:
             //log4("env %d yield",ENVX(curenv->env_id));
 			sys_yield();
-			return 0;
+            return 0;
         case SYS_exofork:
             return sys_exofork();
         case SYS_env_set_status:

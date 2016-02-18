@@ -425,7 +425,7 @@ page_decref(struct PageInfo* pp)
 // Hint 3: look at inc/mmu.h for useful macros that mainipulate page
 // table and page directory entries.
 //
-#define _MY_PG_WALK_
+//#define _MY_PG_WALK_
 #ifndef _MY_PG_WALK_
 pte_t *
 pgdir_walk(pde_t *pgdir, const void *va, int create)
