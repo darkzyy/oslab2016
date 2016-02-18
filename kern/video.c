@@ -1,5 +1,6 @@
 #include <kern/video.h>
 #include <inc/string.h>
+#include <inc/memlayout.h>
 
 uint8_t *vmem = VMEM_ADDR;
 uint8_t vbuf[SCR_SIZE];
