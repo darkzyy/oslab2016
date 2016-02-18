@@ -6,13 +6,13 @@
 #include <kern/monitor.h>
 
 void sched_halt(void);
+static int lastenvx = -1;
 
 // Choose a user environment to run and run it.
 void
 sched_yield(void)
 {
 	struct Env *idle;
-
 	// Implement simple round-robin scheduling.
 	//
 	// Search through 'envs' for an ENV_RUNNABLE environment in
@@ -30,23 +30,24 @@ sched_yield(void)
 
 	// LAB 4: Your code here.
 	int i;
-	//log4("this cpu id: %d",thiscpu->cpu_id);
-	if(curenv == NULL){
-		curenv = &envs[cpunum()];
+	if(curenv == NULL && lastenvx == -1){
+        lastenvx = cpunum();
+        env_run(&(envs[cpunum()]));
 	}
-	int curenv_id = ENVX(curenv->env_id);
-	log4("current env : %d",curenv_id);
-	for(i = curenv_id+1; i != curenv_id; i++){
-		if(i >= NENV){
-			i -= NENV;
-		}
-		if(envs[i].env_status == ENV_RUNNABLE){
-			log4("cpu%d is going to run env %d", cpunum(), i);
-			env_run(&(envs[i]));
-		}
-	}
-	// sched_halt never returns
-	sched_halt();
+    else{
+        int curenv_id = lastenvx;
+        for(i = curenv_id+1; i != curenv_id; i++){
+            if(i >= NENV){
+                i -= NENV;
+            }
+            if(envs[i].env_status == ENV_RUNNABLE){
+                lastenvx = i;
+                env_run(&(envs[i]));
+            }
+        }
+    }
+    // sched_halt never returns
+    sched_halt();
 }
 
 // Halt this CPU when there is nothing to do. Wait until the

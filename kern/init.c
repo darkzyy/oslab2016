@@ -56,10 +56,7 @@ i386_init(void)
 	// Starting non-boot CPUs
 	boot_aps();
 
-	int i;
-	for(i = 0; i < 8; i++){
-		ENV_CREATE(user_yield, ENV_TYPE_USER);
-	}
+    ENV_CREATE(user_dumbfork, ENV_TYPE_USER);
 #if defined(TEST)
 	// Don't touch -- used by grading script!
 	log4();

@@ -51,6 +51,8 @@ dumbfork(void)
 	// except that in the child, this "fake" call to sys_exofork()
 	// will return 0 instead of the envid of the child.
 	envid = sys_exofork();
+    cprintf("fork finished\n");
+    
 	if (envid < 0)
 		panic("sys_exofork: %e", envid);
 	if (envid == 0) {
@@ -75,6 +77,7 @@ dumbfork(void)
 	if ((r = sys_env_set_status(envid, ENV_RUNNABLE)) < 0)
 		panic("sys_env_set_status: %e", r);
 
+    cprintf("mem init finished\n");
 	return envid;
 }
 

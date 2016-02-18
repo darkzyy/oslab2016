@@ -534,7 +534,7 @@ env_run(struct Env *e)
 	//	e->env_tf to sensible values.
 
 	// LAB 3: Your code here.
-
+    //log4("cpu %d choosed env %d",cpunum(), ENVX(e->env_id));
 	if(curenv && curenv->env_status == ENV_RUNNING){
 		curenv->env_status = ENV_RUNNABLE;
 	}
