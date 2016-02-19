@@ -12,12 +12,12 @@ static int map[9][9] = {
 	{ 3, 1, 1, 1, 1, 1, 3, 3, 3}
 };
 
-#define grey	20
-#define blue	9
-#define yellow	13
-#define pink	14
+#define grey	19
+#define blue	1
+#define yellow	14
+#define pink	36
 #define black	0
-#define red		6
+#define red		4
 
 
 enum {
