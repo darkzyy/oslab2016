@@ -37,13 +37,17 @@ sched_yield(void)
     else{
         int curenv_id = lastenvx;
         for(i = curenv_id+1; i != curenv_id; i++){
-            if(i >= NENV){
-                i -= NENV;
-            }
             if(envs[i].env_status == ENV_RUNNABLE){
                 lastenvx = i;
                 env_run(&(envs[i]));
             }
+            if(i >= NENV){
+                i -= (NENV+1);
+            }
+        }
+        if(i == curenv_id && envs[curenv_id].env_status == ENV_RUNNING) {
+            lastenvx = i;
+            env_run(&(envs[i]));
         }
     }
     // sched_halt never returns

@@ -49,4 +49,13 @@ char*	readline(const char *prompt);
 		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
 	} while(0)
 
+#define log_var(x) \
+    do {\
+        log4("variable " #x " is 0x%x",x);\
+    } while(0)
+
+#define dead() \
+    do {\
+    } while(1)
+
 #endif /* !JOS_INC_STDIO_H */

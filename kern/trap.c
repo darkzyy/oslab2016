@@ -245,8 +245,11 @@ trap_dispatch(struct Trapframe *tf)
 							tf->tf_regs.reg_edi,
 							tf->tf_regs.reg_esi);
 			return;
+        case IRQ_OFFSET + 0: // TIME_INTR
+            return;
 		default:
 			log3("default dispatch");
+            log3("trap no: %d\n", tf->tf_trapno);
 	}
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
