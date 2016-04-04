@@ -1,6 +1,7 @@
 #include <inc/mmu.h>
 #include <inc/x86.h>
 #include <inc/assert.h>
+#include <inc/string.h>
 
 #include <kern/pmap.h>
 #include <kern/trap.h>
@@ -369,6 +370,32 @@ page_fault_handler(struct Trapframe *tf)
 	//   (the 'tf' variable points at 'curenv->env_tf').
 
 	// LAB 4: Your code here.
+    if(curenv->env_pgfault_upcall) {
+        uintptr_t xesp;
+        if(tf->tf_esp < UXSTACKTOP && tf->tf_esp > (UXSTACKTOP - PGSIZE)) {
+            // already running on the uxstack
+            xesp = tf->tf_esp - 4;
+        }
+        else {
+            xesp = UXSTACKTOP;
+        }
+        user_mem_assert(curenv, (void *)xesp - sizeof(struct UTrapframe),
+                sizeof(struct UTrapframe), PTE_W);
+
+        //set up the Trapframe
+        struct UTrapframe utf;
+        utf.utf_fault_va = fault_va;
+        utf.utf_eip = tf->tf_eip;
+        utf.utf_esp = tf->tf_esp;
+        utf.utf_err = tf->tf_err;
+        utf.utf_eflags = tf->tf_eflags;
+        utf.utf_regs = tf->tf_regs;
+
+        tf->tf_esp = xesp - sizeof(struct UTrapframe);
+        tf->tf_eip = (uintptr_t) curenv->env_pgfault_upcall;
+        memmove((void *) tf->tf_esp, (void *) &utf, sizeof(struct UTrapframe));
+        env_run(curenv);
+    }
 
 	// Destroy the environment that caused the fault.
 	cprintf("[%08x] user fault va %08x ip %08x\n",
