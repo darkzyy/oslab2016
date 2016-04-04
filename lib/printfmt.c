@@ -291,10 +291,12 @@ snprintf(char *buf, int n, const char *fmt, ...)
 {
 	va_list ap;
 	int rc;
-
+    log_var(buf);
 	va_start(ap, fmt);
+    log4();
 	rc = vsnprintf(buf, n, fmt, ap);
 	va_end(ap);
+    log4();
 
 	return rc;
 }

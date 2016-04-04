@@ -380,7 +380,7 @@ page_fault_handler(struct Trapframe *tf)
             xesp = UXSTACKTOP;
         }
         user_mem_assert(curenv, (void *)xesp - sizeof(struct UTrapframe),
-                sizeof(struct UTrapframe), PTE_W);
+                sizeof(struct UTrapframe), PTE_W | PTE_U);
 
         //set up the Trapframe
         struct UTrapframe utf;
