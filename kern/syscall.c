@@ -126,7 +126,6 @@ sys_env_set_status(envid_t envid, int status)
         env_store->env_status = status;
         return 0;
     }
-
 }
 
 // Set the page fault upcall for 'envid' by modifying the corresponding struct
