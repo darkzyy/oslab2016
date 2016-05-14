@@ -67,7 +67,7 @@ _pgfault_upcall:
 	// LAB 4: Your code here.
     // fake the context like a return of function call
     movl 48(%esp), %eax
-    subl 4, %eax
+    subl $4, %eax
     movl %eax, 48(%esp)
     movl 40(%esp), %ebx
     movl %ebx, (%eax)

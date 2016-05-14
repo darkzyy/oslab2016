@@ -5,13 +5,12 @@
 void
 handler(struct UTrapframe *utf)
 {
-	int r;
 	void *addr = (void*)utf->utf_fault_va;
-
 	cprintf("fault %x\n", addr);
-	if ((r = sys_page_alloc(0, ROUNDDOWN(addr, PGSIZE),
-				PTE_P|PTE_U|PTE_W)) < 0)
-		panic("allocating at %x in page fault handler: %e", addr, r);
+	int err = sys_page_alloc(0, ROUNDDOWN(addr, PGSIZE), PTE_P|PTE_U|PTE_W);
+    if (err < 0) {
+		panic("allocating at %x in page fault handler: %e", addr, err);
+    }
 	snprintf((char*) addr, 100, "this string was faulted in at %x", addr);
 }
 

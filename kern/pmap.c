@@ -107,7 +107,6 @@ boot_alloc(uint32_t n)
 		return nextfree;
 	}
 	else{
-		log2("nextfree: 0x%x",nextfree);
 		result = nextfree;
 		nextfree = ROUNDUP((char *) (n+nextfree), PGSIZE);
 		return result;
@@ -799,7 +798,6 @@ check_page_free_list(bool only_low_memory)
 
 	assert(nfree_basemem > 0);
 	assert(nfree_extmem > 0);
-	log4();
 }
 
 //
