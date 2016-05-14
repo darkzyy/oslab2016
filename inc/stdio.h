@@ -49,9 +49,15 @@ char*	readline(const char *prompt);
 		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
 	} while(0)
 
+#define log5(format,...)	\
+	do {\
+		cprintf("LAB5:\t"format"\tin %s,function %s, line: %d\n",\
+		##__VA_ARGS__,__FILE__,__func__,__LINE__);\
+	} while(0)
+
 #define log_var(x) \
     do {\
-        log4("variable " #x " is 0x%x",x);\
+        log5("variable " #x " is 0x%x",*((uint32_t *) (x)));\
     } while(0)
 
 #define dead() \

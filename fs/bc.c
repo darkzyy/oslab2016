@@ -54,7 +54,8 @@ bc_pgfault(struct UTrapframe *utf)
         panic("allocating at %x in page fault handler: %e", addr, r);
     }
 
-    if ((r = ide_read(blockno*SECTSIZE/BLKSIZE, addr, BLKSIZE/SECTSIZE)) < 0) {
+    log5("is going to read into 0x%x", addr);
+    if ((r = ide_read(blockno*BLKSIZE/SECTSIZE, addr, BLKSIZE/SECTSIZE)) < 0) {
         panic("failed to read from disk");
     }
 	// Clear the dirty bit for the disk block page since we just read the
@@ -62,6 +63,8 @@ bc_pgfault(struct UTrapframe *utf)
     // !!!there might be bomb !!! TODO
 	if ((r = sys_page_map(0, addr, 0, addr, PTE_P | PTE_U | PTE_W)) < 0)
 		panic("in bc_pgfault, sys_page_map: %e", r);
+
+    log5("mapped the %dth block to 0x%x", blockno, addr);
 
 	// Check that the block we read was allocated. (exercise for
 	// the reader: why do we do this *after* reading the block
@@ -80,6 +83,7 @@ bc_pgfault(struct UTrapframe *utf)
 void
 flush_block(void *addr)
 {
+    log5("flushing 0x%x", addr);
 	uint32_t blockno = ((uint32_t)addr - DISKMAP) / BLKSIZE;
 
 	if (addr < (void*)DISKMAP || addr >= (void*)(DISKMAP + DISKSIZE))
@@ -89,9 +93,14 @@ flush_block(void *addr)
 
     addr = PGROUNDDOWN(addr);
     if(!va_is_mapped(addr) && !va_is_dirty(addr)) {
+        log5();
         return;
     }
-    ide_write(blockno*SECTSIZE/BLKSIZE, addr, BLKSIZE/SECTSIZE);
+
+    if (ide_write(blockno*BLKSIZE/SECTSIZE, addr, BLKSIZE/SECTSIZE) < 0) {
+        panic("failed to flush block using ide_write");
+    }
+
     int r;
 	if ((r = sys_page_map(0, addr, 0, addr, PTE_P | PTE_U | PTE_W | PTE_SYSCALL)) < 0)
 		panic("in bc_pgfault, sys_page_map: %e", r);
@@ -106,14 +115,13 @@ check_bc(void)
 
 	// back up super block
 	memmove(&backup, diskaddr(1), sizeof backup);
-
+    log_var(diskaddr(1));
+    log_var(&backup.s_magic);
 	// smash it
 	strcpy(diskaddr(1), "OOPS!\n");
 	flush_block(diskaddr(1));
 	assert(va_is_mapped(diskaddr(1)));
-    log4();
 	assert(!va_is_dirty(diskaddr(1)));
-    log4();
 
 	// clear it out
 	sys_page_unmap(0, diskaddr(1));
@@ -125,6 +133,7 @@ check_bc(void)
 	// fix it
 	memmove(diskaddr(1), &backup, sizeof backup);
 	flush_block(diskaddr(1));
+    log_var(diskaddr(1));
 
 	cprintf("block cache is good\n");
 }
@@ -137,6 +146,8 @@ bc_init(void)
 	check_bc();
 
 	// cache the super block by reading it once
+    log5();
 	memmove(&super, diskaddr(1), sizeof super);
+    log5();
 }
 
