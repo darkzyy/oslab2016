@@ -62,8 +62,41 @@ alloc_block(void)
 	// super->s_nblocks blocks in the disk altogether.
 
 	// LAB 5: Your code here.
-	panic("alloc_block not implemented");
-	return -E_NO_DISK;
+
+    uint32_t blockno = 0;
+    int i, j;
+	for (i = 0; i < super->s_nblocks/32; i++) {
+        if (bitmap[i] != 0) {
+            for (j = 0; j < 32; j++) {
+                log5();
+                if (bitmap[i] & (1<<j)) { // free : 1
+                    blockno = i*32 + j;
+                    break;
+                }
+            }
+            if (j == 32) {
+                panic("Unexpected: free block not found!");
+            }
+            else {
+                log_var(&i);
+                log_var(&j);
+                log_var(&blockno);
+                break;
+            }
+        }
+    }
+    log5();
+    if (blockno == 0) {
+        log5();
+        return -E_NO_DISK;
+    }
+    else {
+        log5();
+        log_var(&blockno);
+        bitmap[blockno/32] &= ~(1<<(blockno%32));
+        flush_block(bitmap + blockno/32);
+        return blockno;
+    }
 }
 
 // Validate the file system bitmap.
@@ -75,7 +108,7 @@ check_bitmap(void)
 {
 	uint32_t i;
 
-	// Make sure all bitmap blocks are marked in-use
+	// Make sure all *bitmap blocks* are marked in-use
 	for (i = 0; i * BLKBITSIZE < super->s_nblocks; i++)
 		assert(!block_is_free(2+i));
 
