@@ -168,28 +168,31 @@ static int
 file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool alloc)
 {
     // LAB 5: Your code here.
-
-    int i;
-    for (i = 0; i < NDIRECT; i++) {
-        if (f->f_direct[i] == filebno) {
-            *ppdiskbno = &(f->f_direct[i]);
-            return 0;
-        }
+    *ppdiskbno = NULL;
+    if (filebno >= NDIRECT + NINDIRECT) {
+        return -E_INVAL;
+    }
+    if (filebno < NDIRECT) {
+        *ppdiskbno = &(f->f_direct[filebno]);
+        return 0;
     }
     // find in indirect 
-    i = 0;
-    if (f->f_indirect) {
-        uint32_t *indirect = diskaddr(f->f_indirect);
-        for (; i < NINDIRECT; i++) {
-            if (indirect[i] == filebno) {
-                *ppdiskbno = &indirect[i];
-                return 0;
+    if (!f->f_indirect) {
+        if (alloc) {
+            int new_bl;
+            if ((new_bl = alloc_block()) < 0) {
+                return new_bl;
             }
+            f->f_indirect = new_bl;
+            memset(diskaddr(new_bl), 0, BLKSIZE); // do not forget it
+        }
+        else {
+            return -E_NOT_FOUND;
         }
     }
-    else if (alloc){
-    }
-    // not found and not alloc
+    uint32_t *indirect = diskaddr(f->f_indirect);
+    *ppdiskbno = &indirect[filebno];
+    return 0;
 }
 
 // Set *blk to the address in memory where the filebno'th
@@ -203,8 +206,20 @@ file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool all
 int
 file_get_block(struct File *f, uint32_t filebno, char **blk)
 {
-       // LAB 5: Your code here.
-       panic("file_get_block not implemented");
+    // LAB 5: Your code here.
+    int r;
+    uint32_t *ppdiskbno;
+    if ((r = file_block_walk(f, filebno, &ppdiskbno, 1) < 0)) {
+        return r;
+    }
+    if(!(*ppdiskbno)) {
+        if((r = alloc_block()) < 0) {
+            return r;
+        }
+        *ppdiskbno = r;
+    }
+    *blk = diskaddr(*ppdiskbno);
+    return 0;
 }
 
 // Try to find a file named "name" in dir.  If so, set *file to it.
