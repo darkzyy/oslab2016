@@ -48,10 +48,19 @@ bc_pgfault(struct UTrapframe *utf)
 	// the disk.
 	//
 	// LAB 5: you code here:
+    addr = PGROUNDDOWN(addr);
 
+    if ((r = sys_page_alloc(0, addr, PTE_P | PTE_U | PTE_W)) < 0) {
+        panic("allocating at %x in page fault handler: %e", addr, r);
+    }
+
+    if ((r = ide_read(blockno*SECTSIZE/BLKSIZE, addr, BLKSIZE/SECTSIZE)) < 0) {
+        panic("failed to read from disk");
+    }
 	// Clear the dirty bit for the disk block page since we just read the
 	// block from disk
-	if ((r = sys_page_map(0, addr, 0, addr, uvpt[PGNUM(addr)] & PTE_SYSCALL)) < 0)
+    // !!!there might be bomb !!! TODO
+	if ((r = sys_page_map(0, addr, 0, addr, PTE_P | PTE_U | PTE_W)) < 0)
 		panic("in bc_pgfault, sys_page_map: %e", r);
 
 	// Check that the block we read was allocated. (exercise for
@@ -77,7 +86,15 @@ flush_block(void *addr)
 		panic("flush_block of bad va %08x", addr);
 
 	// LAB 5: Your code here.
-	panic("flush_block not implemented");
+
+    addr = PGROUNDDOWN(addr);
+    if(!va_is_mapped(addr) && !va_is_dirty(addr)) {
+        return;
+    }
+    ide_write(blockno*SECTSIZE/BLKSIZE, addr, BLKSIZE/SECTSIZE);
+    int r;
+	if ((r = sys_page_map(0, addr, 0, addr, PTE_P | PTE_U | PTE_W | PTE_SYSCALL)) < 0)
+		panic("in bc_pgfault, sys_page_map: %e", r);
 }
 
 // Test that the block cache works, by smashing the superblock and
@@ -94,7 +111,9 @@ check_bc(void)
 	strcpy(diskaddr(1), "OOPS!\n");
 	flush_block(diskaddr(1));
 	assert(va_is_mapped(diskaddr(1)));
+    log4();
 	assert(!va_is_dirty(diskaddr(1)));
+    log4();
 
 	// clear it out
 	sys_page_unmap(0, diskaddr(1));
